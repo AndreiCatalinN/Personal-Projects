@@ -18,7 +18,6 @@ def dictionary_attack():
         quit()
 
     for hash in pass_file:
-
         # print(word)
         # print(digest)
         # print(pass_hash)
