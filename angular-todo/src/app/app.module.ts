@@ -11,6 +11,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { QuoteComponent } from './quote/quote.component';
 import { CartComponent } from './cart/cart.component';
 import { ShippingComponent } from './shipping/shipping.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { ShippingComponent } from './shipping/shipping.component';
     imports: [
       BrowserModule,
       HttpClientModule,
+      ReactiveFormsModule,
       RouterModule.forRoot([
         { path: 'products/:productId',
           component: ProductDetailsComponent },
@@ -40,7 +43,8 @@ import { ShippingComponent } from './shipping/shipping.component';
           component: ProductListComponent },
         { path: '**',
           component: ProductListComponent }
-      ])
+      ]),
+      NgbModule
     ],
   providers: [],
   bootstrap: [AppComponent]

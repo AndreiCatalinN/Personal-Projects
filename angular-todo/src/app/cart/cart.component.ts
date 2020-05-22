@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from '../services/cart.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -8,7 +9,9 @@ import {CartService} from '../services/cart.service';
 })
 export class CartComponent implements OnInit {
   items;
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService
+  ) { }
 
   ngOnInit(): void {
     this.items = this.cartService.getItems();
@@ -20,9 +23,5 @@ export class CartComponent implements OnInit {
 
   remove(item: any) {
     this.items = this.cartService.removeItem(item);
-  }
-
-  buyAll() {
-    window.alert('Items have been bought');
   }
 }
