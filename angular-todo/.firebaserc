@@ -1,11 +1,14 @@
 {
   "targets": {
-    "angular-todo-fa556": {
+    "angular-todo-ee283": {
       "hosting": {
         "angular-todo": [
-          "angular-todo-fa556"
+          "angular-todo-ee283"
         ]
       }
     }
+  },
+  "projects": {
+    "default": "angular-todo-ee283"
   }
 }

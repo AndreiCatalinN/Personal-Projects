@@ -29,6 +29,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ##Deploying it:
 
 Deployed to firebase.
-
-Use `ng deploy` after it is built
-https://angular.io/start/start-deployment
+https://angular-todo-ee283.web.app/ 
+Use `ng deploy` to deploy it. More info can be found here: https://angular.io/start/start-deployment
