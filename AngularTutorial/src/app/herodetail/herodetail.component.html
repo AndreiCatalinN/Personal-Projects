@@ -1,0 +1,11 @@
+
+  <div *ngIf="hero">
+    <span>id: </span>{{hero.id}}
+    <span>name: </span>{{hero.name}}
+    <p><input [(ngModel)]="hero.name" placeholder="name"></p>
+    <button (click)="save()">save</button>
+    <button class="delete" title="delete hero"
+            (click)="delete(hero)">x</button>
+    <button (click)="goBack()">go back</button>
+  </div>
+
