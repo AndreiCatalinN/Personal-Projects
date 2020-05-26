@@ -1,17 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeroesComponent } from './heroes/heroes.component';
-import { HerodetailComponent } from './herodetail/herodetail.component';
-import {HeroService} from './Services/hero.service';
-import { MessagesComponent } from './messages/messages.component';
-import {MessageService} from './Services/message.service';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
+import { AppRoutingModule } from './app-routing.module';
+import { HerodetailComponent } from './herodetail/herodetail.component';
+import { MessagesComponent } from './messages/messages.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeroesComponent } from './heroes/heroes.component';
+import { AppComponent } from './app.component';
+
 import { InMemoryDataService } from './Services/in-memory-data.service';
+import {MessageService} from './Services/message.service';
+import {HeroService} from './Services/hero.service';
+import { Page404Component } from './page404/page404.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { InMemoryDataService } from './Services/in-memory-data.service';
     HeroesComponent,
     HerodetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,

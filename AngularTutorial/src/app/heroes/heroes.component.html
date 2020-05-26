@@ -2,24 +2,17 @@
 
   <h2>My Heroes</h2>
   <ul class="heroes">
-      <li *ngFor="let hero of list">
-        <a routerLink="/detail/{{hero.id}}">
-          <span class="badge">{{hero.id}}</span> {{hero.name | titlecase}}
+      <li  *ngFor="let hero of list"
+           (click)="onSelect(hero)"
+           [class.selected]="hero === selectedHero">
+        <a>
+          <span class="badge">{{hero.id}}</span>
+          {{hero.name | titlecase}}
         </a>
       </li>
   </ul>
 
-  <div>
-    <h2>Add Hero</h2>
-    <label>Hero name:
-      <input #heroName />
-    </label>
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button (click)="add(heroName.value); heroName.value=''">
-      add
-    </button>
-
-  </div>
-
-
+  <app-herodetail [hero]="selectedHero"></app-herodetail>
 </div>
+
+<!--[routerLink]="['/detail',hero.id]"-->

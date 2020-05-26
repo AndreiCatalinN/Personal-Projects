@@ -9,6 +9,7 @@ import { HeroService } from '../Services/hero.service';
 })
 export class HeroesComponent implements OnInit {
   list: Hero[];
+  selectedHero: Hero;
 
   constructor(private heroService: HeroService) { }
 
@@ -19,6 +20,10 @@ export class HeroesComponent implements OnInit {
   getHeroes(): void {
     this.heroService.getHeroes()
       .subscribe( list => this.list = list);
+  }
+
+  onSelect(hero: Hero) {
+    this.selectedHero = hero;
   }
 
   delete(hero: Hero): void {
