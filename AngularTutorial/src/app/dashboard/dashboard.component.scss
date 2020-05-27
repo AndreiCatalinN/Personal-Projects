@@ -4,16 +4,8 @@
   padding-right: 20px;
   padding-bottom: 20px;
 }
-[class*='col-']:last-of-type {
-  padding-right: 0;
-}
 a {
   text-decoration: none;
-}
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 h3 {
   text-align: center;
@@ -34,7 +26,7 @@ h4 {
   color: #eee;
   max-height: 120px;
   min-width: 120px;
-  background-color: #607d8b;
+  background-color: #3f525c;
   border-radius: 2px;
 }
 .module:hover {

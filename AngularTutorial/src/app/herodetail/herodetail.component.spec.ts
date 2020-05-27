@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HerodetailComponent } from './herodetail.component';
-import {describe, expect} from "@angular/core/testing/src/testing_internal";
+import {describe, expect} from '@angular/core/testing/src/testing_internal';
 
 describe('HerodetailComponent', () => {
   let component: HerodetailComponent;

@@ -3,14 +3,16 @@
   <h1>{{title}}</h1>
 
   <nav>
-    <a routerLink="/heroes">Heroes</a>
+    <a class="mr-3" routerLink="/heroes">Heroes</a>
     <a routerLink="/dashboard">Dashboard</a>
   </nav>
-  <aside>
-    <app-messages></app-messages>
-  </aside>
+
   <section>
     <router-outlet></router-outlet>
   </section>
+
+  <aside>
+    <app-messages></app-messages>
+  </aside>
 
 </div>

@@ -30,7 +30,6 @@ import { Page404Component } from './page404/page404.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
@@ -41,7 +40,8 @@ import { Page404Component } from './page404/page404.component';
   providers: [
     HeroService,
     MessageService,
-    InMemoryDataService],
+    InMemoryDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

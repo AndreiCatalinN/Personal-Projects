@@ -1,5 +1,4 @@
 <div *ngIf="hero">
-
   <h2>{{hero.name | titlecase}} Details</h2>
   <div><span>id: </span>{{hero.id}}</div>
   <div>
@@ -7,5 +6,15 @@
       <input [(ngModel)]="hero.name" placeholder="name"/>
     </label>
   </div>
-
+  <div class="btn-group btn-group-md" role="group">
+    <button type="button"
+            class="btn btn-warning"
+            (click)="save(hero)">Change</button>
+    <button type="button"
+            class="btn btn-danger"
+            (click)="delete(hero)">Delete</button>
+    <button type="button"
+            class="btn btn-secondary"
+            (click)="goBack()">Go Back</button>
+  </div>
 </div>
