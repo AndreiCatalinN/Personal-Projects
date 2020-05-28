@@ -15,6 +15,7 @@ import { InMemoryDataService } from './Services/in-memory-data.service';
 import {MessageService} from './Services/message.service';
 import {HeroService} from './Services/hero.service';
 import { Page404Component } from './page404/page404.component';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +24,12 @@ import { Page404Component } from './page404/page404.component';
     HerodetailComponent,
     MessagesComponent,
     DashboardComponent,
-    Page404Component
+    Page404Component,
+    HeroSearchComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     FormsModule,
     HttpClientModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests

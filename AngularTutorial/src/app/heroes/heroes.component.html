@@ -1,14 +1,23 @@
 <div class="mt-2">
-
   <h2>My Heroes</h2>
   <ul class="heroes">
-      <li  *ngFor="let hero of list"
-           [routerLink]="['/details',hero.id]">
-        <a>
-          <span class="badge">{{hero.id}}</span>
-          {{hero.name | titlecase}}
+      <li class="mb-2" *ngFor="let hero of list">
+        <a [routerLink]="['/details', hero.id]">
+          <span class="badge">{{hero.id}}</span> {{hero.name | titlecase}}
         </a>
+        <button class="delete" title="delete hero"
+                (click)="delete(hero)">x</button>
       </li>
   </ul>
+
+  <h4>Add Hero</h4>
+  <div class="input-group mb-3">
+    <input placeholder="Hero name" type="text" #heroName />
+    <div class="input-group-append">
+      <button
+        class="btn btn-primary"
+        (click)="add(heroName.value); heroName.value=''">Add</button>
+    </div>
+  </div>
 </div>
 
