@@ -1,6 +1,7 @@
 export class Customer {
 
-  constructor(public firstName = '',
+  constructor(
+    public firstName = '',
     public lastName = '',
     public email = '',
     public sendCatalog = false,
@@ -9,5 +10,6 @@ export class Customer {
     public street2?: string,
     public city?: string,
     public state = '',
-    public zip?: string) { }
+    public zip?: string
+  ) { }
 }
