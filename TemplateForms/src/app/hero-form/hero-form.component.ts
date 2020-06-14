@@ -9,7 +9,7 @@ import {Hero} from '../hero';
 export class HeroFormComponent implements OnInit {
 
   powers = ['Genius', 'Flexible Body', 'Fire Body', 'Weather Changer'];
-  model = new Hero(18, 'Dr. Smart', this.powers[0], 'Choke Norris');
+  model = new Hero(18, 'Dr. Smart', this.powers[0], 'Chuck Norris');
   submitted = false;
 
   onSubmit() { this.submitted = true; }
@@ -22,6 +22,5 @@ export class HeroFormComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 
 }
