@@ -6,11 +6,13 @@ import { ReactiveFormsModule} from '@angular/forms';
 // Components
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './customers/customer.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerComponent
+    CustomerComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

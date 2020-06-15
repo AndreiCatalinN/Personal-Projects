@@ -4,7 +4,6 @@ import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '
 
 // Locals
 import { Customer } from './customer';
-import {Validator} from 'codelyzer/walkerFactory/walkerFn';
 
 function emailMatch(c: AbstractControl): {[key: string]: boolean} | null {
   const email = c.get('email');
