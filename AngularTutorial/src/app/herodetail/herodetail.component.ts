@@ -3,6 +3,7 @@ import { Hero } from '../hero';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { HeroService } from '../Services/hero.service';
+import {powers} from '../powers';
 
 @Component({
   selector: 'app-herodetail',
@@ -11,6 +12,9 @@ import { HeroService } from '../Services/hero.service';
 })
 export class HerodetailComponent implements OnInit {
   @Input() hero: Hero;
+
+  powers = powers;
+
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,

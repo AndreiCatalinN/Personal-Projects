@@ -16,6 +16,7 @@ import {MessageService} from './Services/message.service';
 import {HeroService} from './Services/hero.service';
 import { Page404Component } from './page404/page404.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { AddHeroComponent } from './add-hero/add-hero.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     MessagesComponent,
     DashboardComponent,
     Page404Component,
-    HeroSearchComponent
+    HeroSearchComponent,
+    AddHeroComponent
   ],
   imports: [
     AppRoutingModule,
