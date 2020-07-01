@@ -1,6 +1,7 @@
 # Requirements:
 # pip install pytube3 beautifulsoup4 requests
 # pip install --upgrade git+https://gitlab.com/obuilds/public/pytube@ob-v1
+# This script downloads youtube playlists
 
 from pytube import YouTube
 import bs4

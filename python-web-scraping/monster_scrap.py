@@ -1,10 +1,10 @@
-import requests
-import bs4
+# this script filters monster jobs
 import pprint
+from youtube_scrap import get_page
 
 
-def monster_scrap():
-    URL = r'https://www.monster.ie/jobs/search/?q=graduate'
+def monster_scrap(url):
+
     job = {
         "title": "",
         "company": "",
@@ -13,10 +13,10 @@ def monster_scrap():
     desired_job = input("Desired job: ")
     desired_location = input("Desired location: ")
     desired_company = input("Desired company: ")
-    page = requests.get(URL)
-    soup = bs4.BeautifulSoup(page.text, 'html.parser')
+    soup = get_page(url)
     # get all jobs
     results = soup.find(id='ResultsContainer')
+
     # get a job list
     job_elems = results.find_all('section', class_='card-content')
     for job_elem in job_elems:
@@ -32,4 +32,4 @@ def monster_scrap():
 
 
 if __name__ == '__main__':
-    monster_scrap()
+    monster_scrap(r'https://www.monster.ie/jobs/search/?q=graduate')
