@@ -5,41 +5,12 @@ import {
   FormArray,
   FormBuilder,
   FormGroup,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 // Locals
-import { Customer } from './customer';
-
-function emailMatch(
-  control: AbstractControl
-): { [key: string]: boolean } | null {
-  const email = control.get('email');
-  const confirm = control.get('confirmEmail');
-
-  if (email.pristine || confirm.pristine) {
-    return null;
-  }
-  if (email.value === confirm.value) {
-    return null;
-  }
-  return { match: true };
-}
-
-function ratingRange(min: number, max: number): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: boolean } | null => {
-    //if something is wrong
-    if (
-      control.value !== null &&
-      (isNaN(control.value) || control.value < min || control.value > max)
-    ) {
-      return { range: true };
-    }
-    return null; // if valid
-  };
-}
+import { NumberValidators } from '../shared/number.validators'
 
 @Component({
   selector: 'app-customer',
@@ -47,7 +18,6 @@ function ratingRange(min: number, max: number): ValidatorFn {
   styleUrls: ['./customer.component.css'],
 })
 export class CustomerComponent implements OnInit {
-  customer = new Customer();
 
   customerForm: FormGroup;
   emailMessage: string;
@@ -58,7 +28,6 @@ export class CustomerComponent implements OnInit {
   };
 
   states = [
-    { prefix: '', state: 'Select a state' },
     { prefix: 'IE', state: 'Ireland' },
     { prefix: 'RO', state: 'Romania' },
     { prefix: 'UK', state: 'United Kingdom' },
@@ -72,7 +41,9 @@ export class CustomerComponent implements OnInit {
   get addresses(): FormArray {
     return <FormArray>this.customerForm.get('addresses');
   }
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.customerForm = this.fb.group({
@@ -90,10 +61,10 @@ export class CustomerComponent implements OnInit {
           email: ['', [Validators.required, Validators.email]],
           confirmEmail: ['', [Validators.required]],
         },
-        { validator: emailMatch }
+        { validator: NumberValidators.emailMatch }
       ), // watch out for this little v
       phone: '',
-      rating: [null, ratingRange(1, 5)],
+      rating: [null, NumberValidators.range(1, 5)],
       notification: 'email',
       sendCatalog: true,
       addresses: this.fb.array([this.buildAddress()]),

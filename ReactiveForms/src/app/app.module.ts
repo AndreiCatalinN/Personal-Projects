@@ -6,17 +6,16 @@ import { ReactiveFormsModule} from '@angular/forms';
 // Components
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './customers/customer.component';
-import { TestComponent } from './test/test.component';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerComponent,
-    TestComponent
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent]
 })
