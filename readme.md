@@ -1,23 +1,33 @@
 # Projects explained
 
 ## Angular Tutorial
-
 This is the Angular Tour of heroes tutorial developed using angular 9.
 
-## Angular To-Do
+## Reactive Forms
+One of my first reactive forms in angular.
 
+## Template Forms
+One of my first template-driven forms in angular.
+
+## Algorithms
+Project with all sorts of algorithms
+
+## Angular To-Do
 This is a basic to-do app.
 
 ## Angular-tour-of-heroes
-
 It is the same website as angular tutorial but using angular v6
 
-## folder-parser
+# colt-post
+Early express apps following Colt Steele's bootcamp
 
-It is a Java program developed to parse a folder and change file names. Does not fully work and there's an equivalent to this in python-hacking called folder-parser-v2
+## folder-parser
+Java program developed to parse a folder and change file names. Does not fully work and there's an equivalent to this in python-hacking called folder-parser-v2
+
+## Node server
+The first node app
 
 ## photo-gallery
-
 It is an app that stores and makes photos. it is developed in Ionic.
 
 ## python hacking
@@ -34,6 +44,8 @@ transform-to-md-5 transforms all the passwords from 10-million-password-list int
 
 wifi-password-reader reads a computers wifi networks and passwords
 
+## python-web-scrapping
+Has multiple web scrappers 
 
-
-TODO: Add documentation about TemplateForms and ReactiveForms
+## React-tutorial
+Tic-tac-toe game made using react
