@@ -1,2 +1,17 @@
+<%- include ("partials/header") %>
+
+
 <h1> homePage </h1>
+
+<p> ejs says <%= saysHello%></p>
+
+
+<% if (saysHello === "stranger"){ %>
+    <p> Weirdo</p>
+<% } else { %>
+    <p>Hey there</p>
+<% } %>
+
+<%- include ("partials/footer") %>
+
 
