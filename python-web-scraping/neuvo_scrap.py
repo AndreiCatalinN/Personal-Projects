@@ -23,4 +23,4 @@ def neuvo_scrap(url):
 
 if __name__ == '__main__':
     print("Working on it")
-    neuvo_scrap(r"https://ie.neuvoo.com/view/?id=7cde420336f0&pag=1&pos=1&utm_medium=email&source=neuvoo-email&tl1=s33_v27&tl2=c_default&tl3=d_default_en_v27&tl4=&tl5=hourly_limited_5d_daily_budget_v12&tlf=fcd_v27&user_id=48bb3504b2acdf1f14ee4b48439f888b&tgroup=MTA3&send_group=medium&current_group=instant_full&email_source=view-b&refid=42c7ccc9f9c3&email_datein=2020-07-01T13%3A15%3A54Z&email_datesent=2020-07-01T13%3A16%3A00Z&utm_source=gmail.com&email_status=active&wc_email=yes&lang=en&splitab=1&action=emailAlert")
+    neuvo_scrap(r"https://ie.neuvoo.com/view/?id=ca214c1afb48&pag=2&pos=3&utm_medium=email&source=neuvoo-email&tl1=s21_v27&tl2=ckr1_v27&tl3=ddp_v27&tl4=&tl5=hourly_limited_5d_daily_budget_v12&tlf=fcd_v27&user_id=48bb3504b2acdf1f14ee4b48439f888b&tgroup=MTA2&send_group=high&current_group=instant_full&email_source=view-b&refid=7b3e0f9b531e&email_datein=2020-06-24T15%3A27%3A11Z&email_datesent=2020-07-02T17%3A58%3A45Z&utm_source=gmail.com&email_status=active&wc_email=no&lang=en&splitab=1&action=emailAlert")

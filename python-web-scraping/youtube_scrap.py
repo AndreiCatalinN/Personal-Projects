@@ -17,6 +17,8 @@ def youtube_scrap(url, download_type="", res=""):
     playlist = []
     soup = get_page(url)
 
+    print(soup)
+
     # get playlist
     for links in soup.find_all('a'):
         link = links.get('href')
@@ -51,5 +53,5 @@ if __name__ == '__main__':
 
     # works
     youtube_scrap(
-        r"https://www.youtube.com/watch?v=egTDJbKY-fk&list=PLBzBwYhHpqLJgtieIsSd_uncvdwqnr5bp&index=9"
+        r"https://www.youtube.com/watch?v=gBItg6EeJNM&list=RDCXyVMvlS1NU&index=10"
     )
