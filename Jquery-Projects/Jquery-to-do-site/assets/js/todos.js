@@ -10,7 +10,7 @@ $('ul').on('click', 'span', function(event) {
     event.stopPropagation();
 });
 
-$("input[type='text']").keypress( function(event) {
+$("input[type='text']").on("keypress", function(event) {
     if (event.key === "Enter"){
         let toDotext = $(this).val();
         $(this).val("");
@@ -21,6 +21,6 @@ $("input[type='text']").keypress( function(event) {
     }
 });
 
-$('.fa-plus').click( function () {
+$('.fa-plus').on('click',  function () {
     $("input[type='text']").fadeToggle();
 })
