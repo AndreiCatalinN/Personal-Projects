@@ -5,16 +5,16 @@ const
     mongoose = require('mongoose'),
     bodyParser = require("body-parser"),
     methodOverride = require('method-override'),
-    expressSanitizer = require('express-sanitizer');
+    expressSanitizer = require('express-sanitizer')
+    config = require('../../../myCredentials')['credentials'];
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(expressSanitizer());
-
 mongoose.connect(
-    "mongodb+srv://ColtSteele:Catalin97.@yelpcamp.11vik.mongodb.net/blog?retryWrites=true&w=majority",
+    `mongodb+srv://${config}.@yelpcamp.11vik.mongodb.net/blog?retryWrites=true&w=majority`,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
