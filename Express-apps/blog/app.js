@@ -8,6 +8,11 @@ const
     expressSanitizer = require('express-sanitizer')
     config = require('../../../myCredentials')['credentials'];
 
+const
+    Post = require('./models/post'),
+    User = require('./models/user'),
+    Blog = require('./models/blog');
+
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,46 +29,52 @@ mongoose.connect(
         console.log("Connected");
 });
 
-const blogSchema = new mongoose.Schema({
-   title: String,
-   image: String,
-   body: String,
-   created: {type: Date, default: Date.now()},
-});
-const Blog = mongoose.model('Blog', blogSchema);
-
-
-const postSchema = new mongoose.Schema({
-    title: String,
-    content: String
-});
-const Post = new mongoose.model('Post', postSchema);
-
-const userSchema = new mongoose.Schema({
-    email: String,
-    name: String,
-    posts: [postSchema]
-});
-const User = new mongoose.model('User', userSchema);
-
 app.get('/', (req, res) => {
     res.redirect('blogs');
 });
 
 app.get('/newuser', (req, res) => {
-    const newUser = new User({
-        email: "andrew.brown@brown.edu",
-        name: "andrew brown"
+
+    User.create( {
+      email: "bob@gmail.com",
+      name: "bob belcher"
     });
 
-    newUser.posts.push({
-        title: "angry",
-        content: "andrei"
+    Post.create( {
+        title: "how to cook p3",
+        content: "gibberishala"
+    }, (err, post) => {
+        if (err) {
+            console.log(err)
+        } else {
+            User.findOne({email: "bob@gmail.com"}, (err, user) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    user.posts.push(post);
+                    user.save((err, data) => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log(data);
+                        }
+                    });
+                }
+            });
+        }
     });
 
-    newUser.save( (err, user ) => {
+    // User.create( newUser, (err, user ) => {
+    //     if (err){
+    //         console.log('err')
+    //     } else {
+    //         console.log(user);
+    //     }
+    // });
+
+    User.findOne({email: "bob@gmail.com"}).populate("posts").exec( (err, user) => {
         if (err){
-            console.log('err')
+            console.log(err)
         } else {
             console.log(user);
         }
@@ -72,44 +83,6 @@ app.get('/newuser', (req, res) => {
     res.send("new user created");
 });
 
-app.get('/newuserpost', (req, res) => {
-    User.findOne({name: "andrew brown"}, (err, user ) => {
-        if (err){
-            console.log('err')
-        } else {
-            user.posts.push({
-                title: "I love programming",
-                content: "I just do"
-            });
-            user.save((err1, user1) => {
-                if (err1) {
-                    console.log("failed while saving");
-                } else {
-                    console.log(user1);
-                }
-            })
-        }
-    });
-
-    res.send("new user created");
-});
-
-app.get('/newpost', (req, res) => {
-    const newPost = new Post({
-        title: "something",
-        content: "angry"
-    });
-
-    newPost.save( (err, post ) => {
-        if (err){
-            console.log('err')
-        } else {
-            console.log(post);
-        }
-    });
-
-    res.send("new post created");
-});
 
 app.get('/blogs', (req, res) => {
     Blog.find({}, (err, blogs) => {
