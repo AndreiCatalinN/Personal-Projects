@@ -1,0 +1,82 @@
+
+<!--Header Section -->
+<header class="my-1">
+  <img class="rounded" id="banner" src="../../../assets/BANNER-Books.jpg" alt="header image">
+</header>
+<!--Header Section End-->
+
+<!--Navigation bar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+  <a class="navbar-brand" routerLink='/'>Good Reads</a>
+
+  <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse"
+       id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/"
+             routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/about"
+             routerLinkActive="active">Useful Information</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link"
+             id="MyBooks"
+             routerLink="/my_books"
+             routerLinkActive="active">My books</a>
+<!--        TODO: Generate my books component or check how to print just a users books -->
+      </li>
+      <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/book_add"
+             routerLinkActive="active">Add Book</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link"
+             id="Account"
+             routerLink="/account"
+             routerLinkActive="active">Account</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link"  href="">Log Out</a>
+<!--          TODO: How do I log out?-->
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link'
+             id='Login'
+             routerLink="/login"
+             routerLinkActive="active">Log In</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link'
+             id='Register'
+             routerLink="/register"
+             routerLinkActive="active">Register</a>
+        </li>
+        <li class="nav-item">
+          <form class="form-inline my-2 my-lg-0" action="" method="get" enctype="multipart/form-data">
+            <input type="text" name="search_book" class="form-control mr-sm-2"   placeholder="Search" aria-label="Search">
+            <input type="submit" name="search"  class="btn btn-light" value="Search" href="">
+<!--            TODO: Change this to work for angular-->
+          </form>
+        </li>
+      </ul>
+  </div>
+</nav>
+<!--nav Bar end-->

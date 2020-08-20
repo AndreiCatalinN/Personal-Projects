@@ -1,0 +1,92 @@
+<div>
+  <div>
+
+    <h4>Create Account</h4>
+    <form [formGroup]="userForm"
+          (ngSubmit)="onSubmit()">
+      <table>
+        <tr>
+          <td>Username: </td>
+          <td>
+            <input  class="form-control"
+                    name="username"
+                    type="text"
+                    formControlName="username"
+                    required>
+          </td>
+        </tr>
+        <tr class="row" *ngIf="userForm.controls['username'].invalid &&
+              (userForm.controls['username'].dirty || userForm.controls['username'].touched)"
+            class="alert alert-danger">
+          <td *ngIf="userForm.controls['username'].errors.required">
+            The username is required and should be at least 5 characters long.
+          </td>
+        </tr>
+        <tr>
+          <td>Firstname: </td>
+          <td>
+            <input  class="form-control"
+                    name = "firstname"
+                    type ="text"
+                    formControlName="firstname">
+          </td>
+        </tr>
+        <tr>
+          <td>Lastname: </td>
+          <td>
+            <input  class="form-control"
+                    name = "lastname"
+                    type ="text"
+                    formControlName="lastname">
+          </td>
+        </tr>
+        <tr>
+          <td>Password: </td>
+          <td>
+            <input class="form-control"
+                   name="password"
+                   type="password"
+                   formControlName="password"
+                   required>
+          </td>
+        </tr>
+        <tr>
+          <td>E-mail: </td>
+          <td>
+            <input class="form-control"
+                   name="email"
+                   type="email"
+                   formControlName="email"
+                   required>
+          </td>
+        </tr>
+        <tr>
+          <td>Eircom code: </td>
+          <td>
+            <input class="form-control"
+                   name="code"
+                   type="text"
+                   formControlName="eircomCode">
+          </td>
+        </tr>
+        <tr>
+          <td>Phone Number: </td>
+          <td>
+            <input class="form-control"
+                   name="phone_no"
+                   type="text"
+                   formControlName="phoneNumber">
+          </td>
+        </tr>
+        <tr>
+          <td>Profile Image :</td>
+          <td ><input type="file"
+                      name='image'
+                      formControlName="book_image">
+          </td>
+        </tr>
+      </table>
+      <button class="btn btn-secondary" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

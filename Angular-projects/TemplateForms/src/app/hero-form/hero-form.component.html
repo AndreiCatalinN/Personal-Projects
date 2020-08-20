@@ -1,0 +1,76 @@
+<div  class="container">
+
+  <h1>Hero Form</h1>
+  <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name"
+             [(ngModel)]="model.name"
+             name="name"
+             #name="ngModel"
+             required/>
+
+      <div [hidden]="name.valid || name.pristine"
+            class="mt-2 alert alert-danger">
+        Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="alterEgo">Alter Ego</label>
+      <input type="text" class="form-control" id="alterEgo"
+             [(ngModel)]="model.alterEgo"
+             name="alterEgo"
+             #alterEgo="ngModel"
+             required/>
+      <div [hidden]="alterEgo.valid || alterEgo.pristine"
+           class="mt-2 alert alert-danger">
+        Alter Ego is required
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="power">hero Power</label>
+
+      <select class="form-control" id="power"
+              [(ngModel)]="model.power"
+              name="power"
+              #power="ngModel"
+              required>
+        <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+      </select>
+
+      <div [hidden]="power.valid || power.pristine"
+           class="mt-2 alert alert-danger">
+        Power is required
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-success"
+            [disabled]="!heroForm.form.valid">Submit</button>
+
+    <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
+
+  </form>
+
+  <div class="pt-3" [hidden]="!submitted">
+    <h2>You submitted the following:</h2>
+    <div class="row">
+      <div class="col-xs-3">Name</div>
+      <div class="col-xs-9">{{ model.name }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Alter Ego</div>
+      <div class="col-xs-9">{{ model.alterEgo }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Power</div>
+      <div class="col-xs-9">{{ model.power }}</div>
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+  </div>
+</div>
+

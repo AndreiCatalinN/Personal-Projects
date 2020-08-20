@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="app.css">
+
+<h1>friends list</h1>
+
+<% posts.forEach( post => { %>
+  <li><%= post.author %> - <%= post.title%></li>
+<% }); %>
+
+<form method="post" action="/addpost">
+  <input placeholder="name" type="text" name="newPost">
+  <button>submit</button>
+</form>

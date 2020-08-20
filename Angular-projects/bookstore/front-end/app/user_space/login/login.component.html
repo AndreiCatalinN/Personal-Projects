@@ -1,0 +1,56 @@
+<div class='content_wrap'>
+  <div >
+    <form action="" method="post" enctype="multipart/form-data">
+      <table>
+        <tr>
+          <h4>Log In</h4>
+        </tr>
+        <tr>
+          <td>E-mail: </td>
+          <td>
+            <input class="form-control m-1" name="email"  type="text" placeholder ="Or Username" required>
+          </td>
+        </tr>
+        <tr>
+          <td>Enter Password: </td>
+          <td>
+            <input class="form-control m-1" name="password" type="password" id="input" placeholder ="Password" pattern = ".{5,10}" required title ="5 to 10 characters">
+          </td>
+        </tr>
+        <tr>
+          <td class="m-1">
+            Show Password
+            <input class="custom-checkbox" type="checkbox" onclick="myFunction()">
+          </td>
+        </tr>
+
+        <tr>
+          <td >
+            <input class="btn btn-secondary m-1" name="login" type="submit" value="Login"/>
+          </td>
+        </tr>
+
+      </table>
+    </form>
+    <br>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+      <table>
+
+        <tr >
+          <td >Forgot Password?</td>
+          <td>
+            <button class="btn btn-secondary m-1" routerLink="/forgot-pass" >Forgot Pass</button>
+          </td>
+
+        </tr>
+        <tr class="m-1">
+          <td >New? Register Here</td>
+          <td>
+            <button class="btn btn-secondary m-1" routerLink="/register">Register</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>

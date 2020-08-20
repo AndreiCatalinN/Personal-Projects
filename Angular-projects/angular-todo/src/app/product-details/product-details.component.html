@@ -1,0 +1,8 @@
+<h2 >Product Details</h2>
+<article *ngIf="product">
+  <h3>{{product.name}}</h3>
+  <p>{{product.description}}</p>
+  <p routerLink="/quote" >{{product.price | currency}}</p>
+
+  <button (click)="addToCart(product)">Buy</button>
+</article>

@@ -1,0 +1,132 @@
+<div>
+  <div>
+
+    <h4>Insert new book</h4>
+    <form [formGroup]="bookForm"
+          (ngSubmit)="onSubmit()">
+      <table>
+        <tr>
+          <td>ISBN:</td>
+          <td class="col-sm-6">
+            <input id="isbn"
+                   class="form-control m-1"
+                   type="text"
+                   formControlName="isbn"
+                   required>
+          </td>
+        </tr>
+        <tr class="row" *ngIf="bookForm.controls['isbn'].invalid &&
+              (bookForm.controls['isbn'].dirty || bookForm.controls['isbn'].touched)"
+            class="alert alert-danger">
+          <td *ngIf="bookForm.controls['isbn'].errors.required">
+            The ISBN is required and should be at least 5 characters long.
+          </td>
+        </tr>
+        <tr>
+          <td>Title:</td>
+          <td class="col-sm-6">
+            <input id="title"
+                   class="form-control m-1"
+                   type="text"
+                   formControlName="title"
+                   required>
+          </td>
+        </tr>
+        <tr *ngIf="bookForm.controls['title'].invalid &&
+              (bookForm.controls['title'].dirty || bookForm.controls['title'].touched)"
+            class="alert alert-danger">
+          <div *ngIf="bookForm.controls['title'].errors.required">
+            The title is required.
+          </div>
+        </tr>
+        <tr>
+          <td>Author:</td>
+          <td class="col-sm-6">
+            <input id="author"
+                   class="form-control m-1"
+                   type="text"
+                   formControlName="author"
+                   required>
+          </td>
+        </tr>
+        <tr *ngIf="bookForm.controls['author'].invalid &&
+              (bookForm.controls['author'].dirty || bookForm.controls['author'].touched)"
+            class="alert alert-danger">
+          <div *ngIf="bookForm.controls['author'].errors.required">
+            The author is required.
+          </div>
+        </tr>
+        <tr>
+          <td>Description:</td>
+          <td class="col-sm-6">
+            <textarea class="form-control description m-1"
+                      name="description"
+                      formControlName="description"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>Genre:</td>
+          <td class="col-sm-6">
+            <input class="form-control m-1"
+                   name="genre"
+                   type="text"
+                   formControlName="genre"
+                   required>
+          </td>
+        </tr>
+        <tr *ngIf="bookForm.controls['genre'].invalid &&
+              (bookForm.controls['genre'].dirty || bookForm.controls['genre'].touched)"
+            class="alert alert-danger">
+          <div *ngIf="bookForm.controls['genre'].errors.required">
+            The genre is required.
+          </div>
+        </tr>
+
+        <tr>
+          <td>Publication Year:</td>
+          <td class="col-sm-6">
+            <input class="form-control m-1"
+                   name="publication_year"
+                   type="text"
+                   formControlName="publication_year"
+                   required>
+          </td>
+        </tr>
+        <tr *ngIf="bookForm.controls['publication_year'].invalid &&
+              (bookForm.controls['publication_year'].dirty || bookForm.controls['publication_year'].touched)"
+            class="alert alert-danger">
+          <div *ngIf="bookForm.controls['publication_year'].errors.required">
+            The genre is required.
+          </div>
+        </tr>
+        <tr>
+          Publisher :
+          <td class="col-sm-6">
+            <input class="form-control m-1"
+                   name="publisher"
+                   type="text"
+                   formControlName="publisher"
+                   required>
+          </td>
+        </tr>
+        <tr *ngIf="bookForm.controls['publisher'].invalid &&
+              (bookForm.controls['publisher'].dirty || bookForm.controls['publisher'].touched)"
+            class="alert alert-danger">
+          <div *ngIf="bookForm.controls['publisher'].errors.required">
+            The publisher is required.
+          </div>
+        </tr>
+        <tr >
+          <td>Book Image:</td>
+          <td class="col-sm-6">
+            <input type="file"
+                   name="image"
+                   formControlName="book_image"/>
+          </td>
+        </tr>
+      </table>
+      <input class="btn btn-secondary m-1"
+             type="submit"/>
+    </form>
+  </div>
+</div>
