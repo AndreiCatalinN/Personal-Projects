@@ -37,6 +37,7 @@ app.get('/', (req, res) => {
     res.redirect('blogs');
 });
 
+// for testing ONLY!
 app.get('/newuser', (req, res) => {
 
     User.create( {
@@ -67,14 +68,6 @@ app.get('/newuser', (req, res) => {
             });
         }
     });
-
-    // User.create( newUser, (err, user ) => {
-    //     if (err){
-    //         console.log('err')
-    //     } else {
-    //         console.log(user);
-    //     }
-    // });
 
     User.findOne({email: "bob@gmail.com"}).populate("posts").exec( (err, user) => {
         if (err){
