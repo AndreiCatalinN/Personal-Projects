@@ -1,77 +1,124 @@
-let express  = require('express');
-let app = express();
+const
+    express = require('express'),
+    app =  express(),
+    port = 3100,
+    mongoose = require('mongoose'),
+    bodyParser = require("body-parser"),
+    methodOverride = require('method-override'),
+    expressSanitizer = require('express-sanitizer'),
+    config = require('../../myCredentials');
+
+const
+    seedDB = require("./seed"),
+    Campground = require("./models/campground"),
+    User = require("./models/user"),
+    Comment = require("./models/comment");
+
 // for stylesheets
 app.use(express.static("public"));
 // for parsing forms
-const body_parser = require('body-parser');
-app.use(body_parser.urlencoded({extended: true}));
-let port = 3100;
+app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
+// for update and delete
+app.use(methodOverride('_method'));
+//form sanitizing
+app.use(expressSanitizer());
 
-let campgrounds = [
+mongoose.connect(
+    `mongodb+srv://@yelpcamp.11vik.mongodb.net/yelp-camp?retryWrites=true&w=majority`,
     {
-        name: "Salmon Creek",
-        image: "https://images.pexels.com/photos/1061640/pexels-photo-1061640.jpeg?auto=compress&cs=tinysrgb&h=350"
+        user: config.user,
+        pass: config.pass,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false
     },
-    {
-        name: "Azuga",
-        image: "https://images.pexels.com/photos/1230302/pexels-photo-1230302.jpeg?auto=compress&cs=tinysrgb&h=350"
-    },
-    {
-        name: "Sinaia",
-        image: "https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&h=350"
-    },
-    {
-        name: "Valea Prahovei",
-        image: "https://pixabay.com/get/57e8d1464d53a514f1dc84609620367d1c3ed9e04e507440702b72d59045c7_340.jpg"
-    },
-    {
-        name: "Lepsa",
-        image: "https://pixabay.com/get/53e2dc4b4d54a514f1dc84609620367d1c3ed9e04e507440702b72d59045c7_340.jpg"
-    },
-    {
-        name: "Salmon Creek",
-        image: "https://images.pexels.com/photos/1061640/pexels-photo-1061640.jpeg?auto=compress&cs=tinysrgb&h=350"
-    },
-    {
-        name: "Azuga",
-        image: "https://images.pexels.com/photos/1230302/pexels-photo-1230302.jpeg?auto=compress&cs=tinysrgb&h=350"
-    },
-    {
-        name: "Sinaia",
-        image: "https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&h=350"
-    },
-    {
-        name: "Valea Prahovei",
-        image: "https://pixabay.com/get/57e8d1464d53a514f1dc84609620367d1c3ed9e04e507440702b72d59045c7_340.jpg"
-    },
-    {
-        name: "Lepsa",
-        image: "https://pixabay.com/get/53e2dc4b4d54a514f1dc84609620367d1c3ed9e04e507440702b72d59045c7_340.jpg"
-    },
-];
-
-
+    (err) => {
+        if(err) {
+            console.log(err)
+        } else console.log("Connected");
+    });
+// seedDB();
 
 app.get('/', (req, res) => {
    res.render("landing");
-});
-
-app.get('/campgrounds', (req, res) => {
-    res.render("campgrounds", {campgrounds: campgrounds});
 });
 
 app.get('/campgrounds/new', (req, res) => {
     res.render("new");
 });
 
+app.get('/campgrounds', (req, res) => {
+    Campground.find({}, (err, allCampgrounds) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.render("index", {campgrounds: allCampgrounds});
+        }
+    });
+
+});
+
+app.get('/campgrounds/:id', (req, res) => {
+    Campground.findById(req.params.id).populate('comments')
+        .exec((err, foundCampground) => {
+            if(err){
+                res.redirect('/campgrounds');
+            } else {
+                res.render('show', { campground: foundCampground});
+            }
+        });
+});
+
+app.get('/campgrounds/:id/edit', (req, res) => {
+    Campground.findById(req.params.id, (err, foundCampground) => {
+        if(err){
+            res.redirect('/campgrounds');
+        } else {
+            res.render('edit', { campground: foundCampground});
+        }
+    });
+});
+
 app.post('/campgrounds', (req, res) => {
-    let image = req.body.image;
-    let name = req.body.name;
-    campgrounds.push({ name: name, image: image});
-    res.redirect('/campgrounds');
+    req.body.campground = sanitizeCampground(req);
+    Campground.create(req.body.campground, (err, newCamp) => {
+        if (err){
+            res.redirect('/campgrounds');
+        } else {
+            res.redirect('/campgrounds');
+        }
+    });
+});
+
+app.put('/campgrounds/:id', (req, res) => {
+    req.body.campground = sanitizeCampground(req);
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground,(err, updatedCampground) => {
+        if(err){
+            res.redirect('/campgrounds');
+        } else {
+            res.redirect('/campgrounds/' + req.params.id);
+        }
+    });
+});
+
+app.delete('/campgrounds/:id', (req, res) => {
+    Campground.findByIdAndRemove(req.params.id,(err) => {
+        if(err){
+            res.redirect('/campgrounds');
+        } else {
+            res.redirect('/campgrounds');
+        }
+    });
 });
 
 app.listen(port, () => {
    console.log(`Yelp camp: http://localhost:${port}`);
 });
+
+function sanitizeCampground(req) {
+    req.body.campground.name = req.sanitize(req.body.campground.name);
+    req.body.campground.description = req.sanitize(req.body.campground.description);
+    req.body.campground.image = req.sanitize(req.body.campground.image);
+    return req.body.campground;
+}
