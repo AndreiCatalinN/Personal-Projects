@@ -1,12 +1,12 @@
 const
     express = require('express'),
     app =  express(),
-    port = 3100,
+    port = 3101,
     mongoose = require('mongoose'),
     bodyParser = require("body-parser"),
     methodOverride = require('method-override'),
-    expressSanitizer = require('express-sanitizer')
-    config = require('../../../myCredentials')['credentials'];
+    expressSanitizer = require('express-sanitizer'),
+    config = require('../../../myCredentials');
 
 const
     Post = require('./models/post'),
@@ -19,14 +19,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(expressSanitizer());
 mongoose.connect(
-    `mongodb+srv://${config}.@yelpcamp.11vik.mongodb.net/blog?retryWrites=true&w=majority`,
+    `mongodb+srv://@yelpcamp.11vik.mongodb.net/blog?retryWrites=true&w=majority`,
     {
+        user: config.user,
+        pass: config.pass,
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false
     },
-    () => {
-        console.log("Connected");
+    (err) => {
+        if(err) {
+            console.log(err)
+        } else console.log("Connected");
 });
 
 app.get('/', (req, res) => {
