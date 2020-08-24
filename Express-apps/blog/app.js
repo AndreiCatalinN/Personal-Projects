@@ -6,7 +6,10 @@ const
     bodyParser = require("body-parser"),
     methodOverride = require('method-override'),
     expressSanitizer = require('express-sanitizer'),
-    config = require('../../../myCredentials');
+    config = require('../../../myCredentials'),
+    passport = require('passport'),
+    localStrategy = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose');
 
 const
     Post = require('./models/post'),
@@ -14,10 +17,24 @@ const
     Blog = require('./models/blog');
 
 app.set('view engine', 'ejs');
+
+app.use(require('express-session')({
+    resave: false,
+    saveUninitialized: false,
+    secret: "The only course you need to learn web development - HTML, CSS, JS, Node, and More!"
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(expressSanitizer());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+passport.use(new localStrategy(User.authenticate()));
+
 mongoose.connect(
     `mongodb+srv://@yelpcamp.11vik.mongodb.net/blog?retryWrites=true&w=majority`,
     {
@@ -35,6 +52,42 @@ mongoose.connect(
 
 app.get('/', (req, res) => {
     res.redirect('blogs');
+});
+
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
+app.post('/register', (req, res) => {
+
+    User.register(new User(req.body.user), req.body.password, (err, user) => {
+       if (err){
+           console.log(err);
+           return res.render('register');
+       } else {
+           passport.authenticate('local')(req, res,  () => {
+              res.redirect('/secret');
+           });
+       }
+    });
+});
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.post('/login', passport.authenticate('local', {
+  successRedirect: "/secret",
+  failureRedirect: "/login"
+}), (req, res) => {});
+
+app.get('/secret',isLoggedIn, (req, res) => {
+    res.render('secret');
 });
 
 // for testing ONLY!
@@ -92,7 +145,7 @@ app.get('/blogs', (req, res) => {
 });
 
 app.get('/blogs/new', (req, res) => {
-    res.render("new");
+    res.render("./blog/new");
 });
 
 app.post("/blogs", (req, res) => {
@@ -111,7 +164,7 @@ app.get('/blogs/:id', (req, res) => {
         if(err){
             res.redirect('/blogs');
         } else {
-            res.render('show', { blog: foundBlog});
+            res.render('./blog/show', { blog: foundBlog});
         }
     });
 });
@@ -121,7 +174,7 @@ app.get('/blogs/:id/edit', (req, res) => {
         if(err){
             res.redirect('/blogs');
         } else {
-            res.render('edit', { blog: foundBlog});
+            res.render('./blog/edit', { blog: foundBlog});
         }
     });
 });
@@ -156,4 +209,11 @@ function sanitizeInputs(req) {
     req.body.blog.title = req.sanitize(req.body.blog.title);
     req.body.blog.image = req.sanitize(req.body.blog.image);
     return req.body.blog;
+}
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/login');
 }
