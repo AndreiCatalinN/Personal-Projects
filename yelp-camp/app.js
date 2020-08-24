@@ -3,26 +3,51 @@ const
     app =  express(),
     port = 3100,
     mongoose = require('mongoose'),
+    //  for parsing forms
     bodyParser = require("body-parser"),
+    //for using PUT and delete
     methodOverride = require('method-override'),
+    // for sanitizing input
     expressSanitizer = require('express-sanitizer'),
-    config = require('../../myCredentials');
-
-const
+    //mongoDB user and pass
+    config = require('../../myCredentials'),
+    // auth middleware
+    passport = require('passport'),
+    localStrategy = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose'),
     seedDB = require("./seed"),
-    Campground = require("./models/campground"),
-    User = require("./models/user"),
-    Comment = require("./models/comment");
+    User = require('./models/user');
+
 
 // for stylesheets
-app.use(express.static("public"));
+app.use(express.static(__dirname +"/public"));
 // for parsing forms
 app.use(bodyParser.urlencoded({extended: true}));
+// make the default view interpreter ejs
 app.set('view engine', 'ejs');
 // for update and delete
 app.use(methodOverride('_method'));
 //form sanitizing
 app.use(expressSanitizer());
+
+// for hashing passwords
+app.use(require('express-session')({
+    resave: false,
+    saveUninitialized: false,
+    secret: "The only course you need to learn web development - HTML, CSS, JS, Node, and More!"
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// middleware
+app.use( (req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+passport.use(new localStrategy(User.authenticate()));
+
 
 mongoose.connect(
     `mongodb+srv://@yelpcamp.11vik.mongodb.net/yelp-camp?retryWrites=true&w=majority`,
@@ -40,85 +65,16 @@ mongoose.connect(
     });
 // seedDB();
 
-app.get('/', (req, res) => {
-   res.render("landing");
-});
+//routes
+const
+    campgroundRoutes = require('./routes/campgrounds'),
+    commentRoutes = require('./routes/comments'),
+    indexRoutes = require('./routes/index');
 
-app.get('/campgrounds/new', (req, res) => {
-    res.render("new");
-});
-
-app.get('/campgrounds', (req, res) => {
-    Campground.find({}, (err, allCampgrounds) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.render("index", {campgrounds: allCampgrounds});
-        }
-    });
-
-});
-
-app.get('/campgrounds/:id', (req, res) => {
-    Campground.findById(req.params.id).populate('comments')
-        .exec((err, foundCampground) => {
-            if(err){
-                res.redirect('/campgrounds');
-            } else {
-                res.render('show', { campground: foundCampground});
-            }
-        });
-});
-
-app.get('/campgrounds/:id/edit', (req, res) => {
-    Campground.findById(req.params.id, (err, foundCampground) => {
-        if(err){
-            res.redirect('/campgrounds');
-        } else {
-            res.render('edit', { campground: foundCampground});
-        }
-    });
-});
-
-app.post('/campgrounds', (req, res) => {
-    req.body.campground = sanitizeCampground(req);
-    Campground.create(req.body.campground, (err, newCamp) => {
-        if (err){
-            res.redirect('/campgrounds');
-        } else {
-            res.redirect('/campgrounds');
-        }
-    });
-});
-
-app.put('/campgrounds/:id', (req, res) => {
-    req.body.campground = sanitizeCampground(req);
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground,(err, updatedCampground) => {
-        if(err){
-            res.redirect('/campgrounds');
-        } else {
-            res.redirect('/campgrounds/' + req.params.id);
-        }
-    });
-});
-
-app.delete('/campgrounds/:id', (req, res) => {
-    Campground.findByIdAndRemove(req.params.id,(err) => {
-        if(err){
-            res.redirect('/campgrounds');
-        } else {
-            res.redirect('/campgrounds');
-        }
-    });
-});
+app.use(indexRoutes);
+app.use('/campgrounds/:id/comments', commentRoutes);
+app.use('/campgrounds', campgroundRoutes);
 
 app.listen(port, () => {
    console.log(`Yelp camp: http://localhost:${port}`);
 });
-
-function sanitizeCampground(req) {
-    req.body.campground.name = req.sanitize(req.body.campground.name);
-    req.body.campground.description = req.sanitize(req.body.campground.description);
-    req.body.campground.image = req.sanitize(req.body.campground.image);
-    return req.body.campground;
-}

@@ -1,0 +1,36 @@
+
+<%- include ("../partials/header")%>
+
+<div class="container">
+    <div class="row">
+        <h2 style="text-align: center;" >Register</h2>
+        <div style="width: 30%; margin: 25px auto">
+            <form action="/register" method="post">
+
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input class="form-control" type="text" name="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <!--        <div class="field">-->
+                <!--            <label for="">E-mail</label>-->
+                <!--            <input type="email" name="user[email]" placeholder="E-mail">-->
+                <!--        </div>-->
+                <!--        <div class="field">-->
+                <!--            <label for="">Name</label>-->
+                <!--            <input type="text" name="user[name]" placeholder="Name">-->
+                <!--        </div>-->
+                <div class="form-group">
+                    <input class="btn btn-md btn-primary btn-block" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include ("../partials/footer")%>
+
+
