@@ -49,31 +49,31 @@ let data = [
 
 function seedDB() {
     Campground.remove({}, (err) => {
-        if (err){
-            console.log(err)
-        } else console.log('removed campgrounds');
-    });
+    //     if (err){
+    //         console.log(err)
+    //     } else console.log('removed campgrounds');
+    // });
 
-    data.forEach( (seed) =>{
-        Campground.create(seed, (err, campground) => {
-            if (err){
-                console.log(err)
-            } else {
-                console.log('added a campground');
-                Comment.create({
-                    text: "Great place, no internet",
-                    author: "Homer"
-                }, (err, comment) => {
-                    if (err){
-                        console.log(err)
-                    } else {
-                        campground.comments.push(comment)
-                        campground.save()
-                        console.log("Created new comment")
-                    }
-                });
-            }
-        });
+    // data.forEach( (seed) =>{
+    //     Campground.create(seed, (err, campground) => {
+    //         if (err){
+    //             console.log(err)
+    //         } else {
+    //             console.log('added a campground');
+    //             Comment.create({
+    //                 text: "Great place, no internet",
+    //                 author: "Homer"
+    //             }, (err, comment) => {
+    //                 if (err){
+    //                     console.log(err)
+    //                 } else {
+    //                     campground.comments.push(comment)
+    //                     campground.save()
+    //                     console.log("Created new comment")
+    //                 }
+    //             });
+    //         }
+    //     });
     });
 }
 
