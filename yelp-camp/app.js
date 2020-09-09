@@ -1,3 +1,4 @@
+
 const
     express = require('express'),
     app =  express(),
@@ -16,9 +17,11 @@ const
     localStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose'),
     seedDB = require("./seed"),
-    User = require('./models/user');
+    User = require('./models/user'),
+    flash = require('connect-flash');
 
 
+app.use(flash());
 // for stylesheets
 app.use(express.static(__dirname +"/public"));
 // for parsing forms
@@ -41,6 +44,8 @@ app.use(passport.session());
 // middleware
 app.use( (req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
     next();
 });
 
@@ -63,7 +68,7 @@ mongoose.connect(
             console.log(err)
         } else console.log("Connected");
     });
-// seedDB();
+
 
 //routes
 const

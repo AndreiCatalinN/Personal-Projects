@@ -18,6 +18,10 @@
                     <label for="">Description</label>
                     <textarea class="form-control" name="campground[description]"><%= campground.description %></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="">Price</label>
+                    <input class="form-control" type="text" name="campground[price]" value="<%= campground.price %>">
+                </div>
                 <input class="btn btn-md btn-success btn-block" type="submit">
             </form>
         </div>
