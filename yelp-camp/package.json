@@ -4,7 +4,7 @@
   "description": "Developed following Colt Steele's bootcamp",
   "main": "app.js",
   "scripts": {
-    "run": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrei Negura",
